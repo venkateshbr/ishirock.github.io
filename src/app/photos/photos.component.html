@@ -12,23 +12,24 @@
 </mat-card>
 <br />
 <div class="drawer-content">
-  <mat-card class="photos-card" *ngFor="let album of albums">
-    <mat-card-header>
-      <mat-card-title class="title">{{album.title}}</mat-card-title>
-    </mat-card-header>
-    <div align="center"><img card-picture class="card-picture" src={{album.coverPhotoBaseUrl}} alt=""></div>
-
-    <mat-card-content>
-      <p>
-        Number of Photos: {{album.mediaItemsCount}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions class="action-buttons">
-      <a mat-button (click)="openDialog(album)">
-        <mat-icon>more_horiz</mat-icon>
-      </a>
-    </mat-card-actions>
-  </mat-card>
+  @for (album of albums; track album) {
+    <mat-card class="photos-card">
+      <mat-card-header>
+        <mat-card-title class="title">{{album.title}}</mat-card-title>
+      </mat-card-header>
+      <div align="center"><img card-picture class="card-picture" src={{album.coverPhotoBaseUrl}} alt=""></div>
+      <mat-card-content>
+        <p>
+          Number of Photos: {{album.mediaItemsCount}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="action-buttons">
+        <a mat-button (click)="openDialog(album)">
+          <mat-icon>more_horiz</mat-icon>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  }
 </div>
 <div class="drawer-content">
   <mat-card class="photos-card">

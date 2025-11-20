@@ -4,11 +4,12 @@ import { NewsApiService } from '../services/news-api.service';
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
-  styleUrls: ['./news.component.css']
+  styleUrls: ['./news.component.css'],
+  standalone: false
 })
 export class NewsComponent implements OnInit {
 
-  
+
   mArticles: Array<any>;
   mSources: Array<any>;
   bArticles: Array<any>;
@@ -18,46 +19,47 @@ export class NewsComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    this.newsapi.newsArticles().subscribe((result) =>{
-      this.bArticles = result['value'];
+
+    // Load default news articles
+    this.newsapi.newsArticles().subscribe((result) => {
+      this.bArticles = result['articles']; // NewsAPI.org uses 'articles' field
       console.log(this.bArticles);
     })
 
+    // NewsAPI.org supported categories
     this.bCategories = [
       {
-        "id": "Business",
+        "id": "business",
         "category": "Business",
-        "market": "en-IN",
-    },
-    {
-        "id": "ScienceAndTechnology",
-        "category": "ScienceAndTechnology",
-        "language": "en-IN",
-    },
-    {
-      "id": "Sports",
-      "category": "Sports",
-      "language": "en-IN",
-    },
-    {
-      "id": "Entertainment",
-      "category": "Entertainment",
-      "language": "en-IN",
-    },
-    {
-      "id": "Politics",
-      "category": "Politics",
-      "language": "en-IN",
-    },
+      },
+      {
+        "id": "technology",
+        "category": "Technology",
+      },
+      {
+        "id": "sports",
+        "category": "Sports",
+      },
+      {
+        "id": "entertainment",
+        "category": "Entertainment",
+      },
+      {
+        "id": "science",
+        "category": "Science",
+      },
+      {
+        "id": "health",
+        "category": "Health",
+      },
     ]
 
   }
 
-  searchArticles(source) {
-    console.log("selected source is: " + source);
-    this.newsapi.getBArticleByCategory(source).subscribe((result) =>{
-      this.bArticles = result['value'];
+  searchArticles(category) {
+    console.log("selected category is: " + category);
+    this.newsapi.getArticleByCategory(category).subscribe((result) => {
+      this.bArticles = result['articles']; // NewsAPI.org uses 'articles' field
       console.log(this.bArticles);
     })
   }

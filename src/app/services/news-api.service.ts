@@ -7,23 +7,24 @@ import { Observable } from 'rxjs';
 })
 export class NewsApiService {
 
-  api_key = '7fcd8d9755c9434d8f1139dfbe14fe97';
+  // NewsAPI.org free tier API key (replace with your own from https://newsapi.org)
+  api_key = 'f1dddc9683474714b9604ee24e158184';
 
   constructor(private http: HttpClient) { }
 
-  newsURl = "https://api.bing.microsoft.com/v7.0/news";
+  // NewsAPI.org v2 endpoint
+  newsURL = "https://newsapi.org/v2/top-headlines";
 
-
-
-  newsArticles():Observable<any>{
-    const headers = new HttpHeaders().set("Ocp-Apim-Subscription-Key", this.api_key);
-    return this.http.get(this.newsURl,{headers});
+  // Get top headlines (default: US, general news)
+  newsArticles(): Observable<any> {
+    const url = `${this.newsURL}?country=us&apiKey=${this.api_key}`;
+    return this.http.get(url);
   }
 
-  getBArticleByCategory(category: String):Observable<any>{
-    const headers = new HttpHeaders().set("Ocp-Apim-Subscription-Key", this.api_key);
-    var url = this.newsURl + "?mkt=en-in&category="+category;
+  // Get articles by category
+  getArticleByCategory(category: string): Observable<any> {
+    const url = `${this.newsURL}?country=us&category=${category}&apiKey=${this.api_key}`;
     console.log(url);
-    return this.http.get(url, {headers});
+    return this.http.get(url);
   }
 }

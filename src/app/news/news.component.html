@@ -1,45 +1,46 @@
 <mat-card class="head-card">
-    <mat-card-header>
-        <div mat-card-avatar>
-            <mat-icon class="toc-icon" (click)="drawer.toggle()">toc</mat-icon>
-        </div>
-        <mat-card-title>
-            News
-        </mat-card-title>
-    </mat-card-header>
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon class="toc-icon" (click)="drawer.toggle()">toc</mat-icon>
+    </div>
+    <mat-card-title>
+      News
+    </mat-card-title>
+  </mat-card-header>
 </mat-card>
 <mat-drawer-container class="news-container" [hasBackdrop]="false">
-    <mat-drawer #drawer mode="side" class="drawer">
-        <mat-list class="list-nav">
-            <ng-container *ngFor="let source of bCategories">
-                <mat-list-item class="list-item"
-                    (click)="searchArticles(source.id);drawer.toggle()">                    
-                    <span class="source-name"> {{source.category}}</span>
-                </mat-list-item>
-            </ng-container>
-        </mat-list>
-    </mat-drawer>
-    <mat-drawer-content class="drawer-content" fxLayout.xs="column">
-        <mat-card class="news-card" *ngFor="let article of bArticles" fxFlex="23%" fxFlex.xs="100%" fxFlex.sm="33%">
-            <mat-card-header>
-                <div *ngIf="article.provider[0].image" mat-card-avatar [ngStyle]="{'background-image': 'url('+ article.provider[0].image.thumbnail.contentUrl +')'}"
-                        class="header-image" ></div>   
-                <mat-card-title class="card-title">{{article.name}}</mat-card-title>
-                <mat-card-subtitle>{{article.provider[0].name}}</mat-card-subtitle>
-            </mat-card-header>            
-            <!--<div [ngStyle]="{'background-image':'url('+ article.image.thumbnail.contentUrl +')'}"></div>    -->
-            <div class="image-div" > <img *ngIf="article.image" mat-card-md-image src="{{article.image.thumbnail.contentUrl}}" alt=""></div>
-            <div>&nbsp;<br/></div>
-            <mat-card-content class="card-content">
-                <p>
-                    {{article.description}}
-                </p>
-            </mat-card-content>
-            <mat-card-actions class="action-buttons">
-                <a mat-button href={{article.url}} target="_blank">
-                    <mat-icon>more_horiz</mat-icon>
-                </a>
-            </mat-card-actions>
-        </mat-card>
-    </mat-drawer-content>
+  <mat-drawer #drawer mode="side" class="drawer">
+    <mat-list class="list-nav">
+      @for (source of bCategories; track source) {
+        <mat-list-item class="list-item"
+          (click)="searchArticles(source.id);drawer.toggle()">
+          <span class="source-name"> {{source.category}}</span>
+        </mat-list-item>
+      }
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content class="drawer-content" fxLayout.xs="column">
+    @for (article of bArticles; track article) {
+      <mat-card class="news-card" fxFlex="23%" fxFlex.xs="100%" fxFlex.sm="33%">
+        <mat-card-header>
+          <mat-card-title class="card-title">{{article.title}}</mat-card-title>
+          <mat-card-subtitle>{{article.source?.name}}</mat-card-subtitle>
+        </mat-card-header>
+        <div class="image-div" > @if (article.urlToImage) {
+          <img mat-card-md-image src="{{article.urlToImage}}" alt="{{article.title}}">
+        }</div>
+        <div>&nbsp;<br/></div>
+        <mat-card-content class="card-content">
+          <p>
+            {{article.description}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions class="action-buttons">
+          <a mat-button href={{article.url}} target="_blank">
+            <mat-icon>more_horiz</mat-icon>
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </mat-drawer-content>
 </mat-drawer-container>

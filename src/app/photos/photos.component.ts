@@ -9,9 +9,10 @@ import { Album } from './album';
 declare const gapi: any;
 
 @Component({
-  selector: 'app-photos',
-  templateUrl: './photos.component.html',
-  styleUrls: ['./photos.component.css']
+    selector: 'app-photos',
+    templateUrl: './photos.component.html',
+    styleUrls: ['./photos.component.css'],
+    standalone: false
 })
 export class PhotosComponent implements OnInit {
 
@@ -100,8 +101,9 @@ export class PhotosComponent implements OnInit {
 }
 
 @Component({
-  selector: 'photo-dialog',
-  templateUrl: 'photo-dialog.html',
+    selector: 'photo-dialog',
+    templateUrl: 'photo-dialog.html',
+    standalone: false
 })
 export class PhotoDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: PhotosComponent) {}

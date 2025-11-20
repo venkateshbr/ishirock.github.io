@@ -1,15 +1,13 @@
-import {NgModule} from '@angular/core';
-import {
-    MatSidenavModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatListModule,
-    MatCardModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatMenuModule,
-  } from '@angular/material';
-  
+import { NgModule } from '@angular/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatMenuModule } from '@angular/material/menu';
+
 @NgModule({
   imports: [
     MatSidenavModule,
@@ -32,4 +30,4 @@ import {
     MatMenuModule,
   ]
 })
-export class MaterialModule {}
+export class MaterialModule { }
