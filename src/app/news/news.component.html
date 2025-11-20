@@ -1,46 +1,71 @@
-<mat-card class="head-card">
-  <mat-card-header>
-    <div mat-card-avatar>
-      <mat-icon class="toc-icon" (click)="drawer.toggle()">toc</mat-icon>
-    </div>
-    <mat-card-title>
-      News
-    </mat-card-title>
-  </mat-card-header>
-</mat-card>
-<mat-drawer-container class="news-container" [hasBackdrop]="false">
-  <mat-drawer #drawer mode="side" class="drawer">
-    <mat-list class="list-nav">
-      @for (source of bCategories; track source) {
-        <mat-list-item class="list-item"
-          (click)="searchArticles(source.id);drawer.toggle()">
-          <span class="source-name"> {{source.category}}</span>
+<div class="news-page">
+  <mat-card class="head-card">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon class="toc-icon" (click)="drawer.toggle()">menu</mat-icon>
+      </div>
+      <mat-card-title>Latest News</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+
+  <mat-drawer-container class="news-container" [hasBackdrop]="false">
+    <mat-drawer #drawer mode="side" class="drawer">
+      <mat-list class="category-list">
+        <h3 class="drawer-title">Categories</h3>
+        @for (category of bCategories; track category.id) {
+        <mat-list-item class="category-item" (click)="searchArticles(category.id);drawer.toggle()">
+          <span class="category-name">{{category.category}}</span>
         </mat-list-item>
+        }
+      </mat-list>
+    </mat-drawer>
+
+    <mat-drawer-content class="drawer-content">
+      <!-- Debug info -->
+      <!-- <pre>{{ bArticles | json }}</pre> -->
+
+      <div class="news-grid">
+        @for (article of bArticles; track $index) {
+        <mat-card class="news-card">
+          @if (article.urlToImage) {
+          <div class="card-image-container">
+            <img [src]="article.urlToImage" [alt]="article.title" class="card-image"
+              (error)="$event.target.style.display='none'">
+          </div>
+          } @else {
+          <div class="card-image-placeholder">
+            <mat-icon>article</mat-icon>
+          </div>
+          }
+
+          <mat-card-header class="card-header">
+            <mat-card-title class="card-title">{{article.title}}</mat-card-title>
+            <mat-card-subtitle class="card-subtitle">
+              <mat-icon class="source-icon">source</mat-icon>
+              {{article.source?.name}}
+            </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content class="card-content">
+            <p class="card-description">{{article.description || 'No description available.'}}</p>
+          </mat-card-content>
+
+          <mat-card-actions class="card-actions">
+            <a mat-raised-button color="primary" [href]="article.url" target="_blank">
+              Read More
+              <mat-icon>open_in_new</mat-icon>
+            </a>
+          </mat-card-actions>
+        </mat-card>
+        }
+      </div>
+
+      @if (!bArticles || bArticles.length === 0) {
+      <div class="no-articles">
+        <mat-icon>info</mat-icon>
+        <p>No articles available. Please try another category.</p>
+      </div>
       }
-    </mat-list>
-  </mat-drawer>
-  <mat-drawer-content class="drawer-content" fxLayout.xs="column">
-    @for (article of bArticles; track article) {
-      <mat-card class="news-card" fxFlex="23%" fxFlex.xs="100%" fxFlex.sm="33%">
-        <mat-card-header>
-          <mat-card-title class="card-title">{{article.title}}</mat-card-title>
-          <mat-card-subtitle>{{article.source?.name}}</mat-card-subtitle>
-        </mat-card-header>
-        <div class="image-div" > @if (article.urlToImage) {
-          <img mat-card-md-image src="{{article.urlToImage}}" alt="{{article.title}}">
-        }</div>
-        <div>&nbsp;<br/></div>
-        <mat-card-content class="card-content">
-          <p>
-            {{article.description}}
-          </p>
-        </mat-card-content>
-        <mat-card-actions class="action-buttons">
-          <a mat-button href={{article.url}} target="_blank">
-            <mat-icon>more_horiz</mat-icon>
-          </a>
-        </mat-card-actions>
-      </mat-card>
-    }
-  </mat-drawer-content>
-</mat-drawer-container>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

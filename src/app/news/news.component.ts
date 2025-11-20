@@ -22,8 +22,9 @@ export class NewsComponent implements OnInit {
 
     // Load default news articles
     this.newsapi.newsArticles().subscribe((result) => {
-      this.bArticles = result['articles']; // NewsAPI.org uses 'articles' field
-      console.log(this.bArticles);
+      console.log('Full API Result:', result);
+      this.bArticles = result['articles'];
+      console.log('Articles:', this.bArticles);
     })
 
     // NewsAPI.org supported categories
