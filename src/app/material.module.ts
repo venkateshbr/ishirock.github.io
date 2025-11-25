@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonModule,
     MatButtonToggleModule,
     MatMenuModule,
+    MatDialogModule
   ],
   exports: [
     MatSidenavModule,
@@ -28,6 +29,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonModule,
     MatButtonToggleModule,
     MatMenuModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule { }

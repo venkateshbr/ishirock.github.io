@@ -16,19 +16,19 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CvComponent } from './cv/cv.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        PhotosComponent,
-        NewsComponent,
-        SafeHtmlPipe,
-        PhotoDialog,
-        CvComponent
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        MatDialogModule], providers: [NewsApiService, provideHttpClient(withInterceptorsFromDi())]
+  declarations: [
+    AppComponent,
+    PhotosComponent,
+    NewsComponent,
+    SafeHtmlPipe,
+    PhotoDialog,
+    CvComponent
+  ],
+  bootstrap: [AppComponent], imports: [BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatDialogModule], providers: [NewsApiService, provideHttpClient(withInterceptorsFromDi())]
 })
 export class AppModule { }
 
