@@ -27,9 +27,9 @@
       <div class="news-grid">
         @for (article of bArticles; track $index) {
         <mat-card class="news-card">
-          @if (article.urlToImage) {
+          @if (article.image_url) {
           <div class="card-image-container">
-            <img [src]="article.urlToImage" [alt]="article.title" class="card-image"
+            <img [src]="article.image_url" [alt]="article.title" class="card-image"
               (error)="$event.target.style.display='none'">
           </div>
           } @else {
@@ -42,7 +42,7 @@
             <mat-card-title class="card-title">{{article.title}}</mat-card-title>
             <mat-card-subtitle class="card-subtitle">
               <mat-icon class="source-icon">source</mat-icon>
-              {{article.source?.name}}
+              {{article.source_id}}
             </mat-card-subtitle>
           </mat-card-header>
 
@@ -51,7 +51,7 @@
           </mat-card-content>
 
           <mat-card-actions class="card-actions">
-            <a mat-raised-button color="primary" [href]="article.url" target="_blank">
+            <a mat-raised-button color="primary" [href]="article.link" target="_blank">
               Read More
               <mat-icon>open_in_new</mat-icon>
             </a>

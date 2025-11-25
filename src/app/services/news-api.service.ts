@@ -7,23 +7,23 @@ import { Observable } from 'rxjs';
 })
 export class NewsApiService {
 
-  // NewsAPI.org free tier API key (replace with your own from https://newsapi.org)
-  api_key = 'f1dddc9683474714b9604ee24e158184';
+  // NewsData.io API key (replace with your own from https://newsdata.io)
+  api_key = 'pub_6c71f9c4784a4c818e1225e7270eb3a7';
 
   constructor(private http: HttpClient) { }
 
-  // NewsAPI.org v2 endpoint
-  newsURL = "https://newsapi.org/v2/top-headlines";
+  // NewsData.io endpoint
+  newsURL = "https://newsdata.io/api/1/news";
 
-  // Get top headlines (default: US, general news)
+  // Get top headlines (default: US)
   newsArticles(): Observable<any> {
-    const url = `${this.newsURL}?country=us&apiKey=${this.api_key}`;
+    const url = `${this.newsURL}?country=us&apikey=${this.api_key}`;
     return this.http.get(url);
   }
 
   // Get articles by category
   getArticleByCategory(category: string): Observable<any> {
-    const url = `${this.newsURL}?country=us&category=${category}&apiKey=${this.api_key}`;
+    const url = `${this.newsURL}?country=us&category=${category}&apikey=${this.api_key}`;
     console.log(url);
     return this.http.get(url);
   }

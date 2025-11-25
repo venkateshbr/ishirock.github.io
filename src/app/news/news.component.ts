@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NewsApiService } from '../services/news-api.service';
 
 @Component({
@@ -10,12 +10,10 @@ import { NewsApiService } from '../services/news-api.service';
 export class NewsComponent implements OnInit {
 
 
-  mArticles: Array<any>;
-  mSources: Array<any>;
   bArticles: Array<any>;
   bCategories: Array<any>;
 
-  constructor(private newsapi: NewsApiService) {
+  constructor(private newsapi: NewsApiService, private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -23,11 +21,12 @@ export class NewsComponent implements OnInit {
     // Load default news articles
     this.newsapi.newsArticles().subscribe((result) => {
       console.log('Full API Result:', result);
-      this.bArticles = result['articles'];
+      this.bArticles = result['results']; // NewsData.io uses 'results' field
       console.log('Articles:', this.bArticles);
+      this.cd.detectChanges(); // Manually trigger change detection
     })
 
-    // NewsAPI.org supported categories
+    // NewsData.io supported categories
     this.bCategories = [
       {
         "id": "business",
@@ -60,8 +59,9 @@ export class NewsComponent implements OnInit {
   searchArticles(category) {
     console.log("selected category is: " + category);
     this.newsapi.getArticleByCategory(category).subscribe((result) => {
-      this.bArticles = result['articles']; // NewsAPI.org uses 'articles' field
+      this.bArticles = result['results']; // NewsData.io uses 'results' field
       console.log(this.bArticles);
+      this.cd.detectChanges(); // Manually trigger change detection
     })
   }
 
